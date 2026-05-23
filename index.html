@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FBInfer: El Analizador Estático de Meta</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Hojas de Estilos -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Contenedor Principal de la Presentación -->
+    <div class="presentation-container">
+        
+        <!-- Barra de Navegación Superior / Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-microchip logo-icon"></i>
+                <span class="logo-text">FB<span class="accent-text">Infer</span></span>
+            </div>
+            <div class="slide-title-indicator" id="slide-title-indicator">Presentación</div>
+            <div class="header-controls">
+                <button id="theme-toggle" class="header-btn" title="Cambiar Tema (Claro/Oscuro)">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button id="fullscreen-btn" class="header-btn" title="Pantalla Completa">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Área de las Diapositivas -->
+        <main class="slides-viewport">
+            
+            <!-- DIAPOSITIVA 1: Portada (Intro) -->
+            <section class="slide active" id="slide-1" data-title="Portada">
+                <div class="slide-content cover-slide">
+                    <div class="cover-badge">Análisis Estático de Software</div>
+                    <h1 class="main-title">FB<span class="gradient-text">Infer</span></h1>
+                    <p class="main-subtitle">Verificación formal y detección automática de fallos para Java, C, C++ y Objective-C</p>
+                    
+                    <div class="divider"></div>
+                    
+                    <div class="cover-meta-grid">
+                        <div class="meta-item">
+                            <span class="meta-label">Asignatura</span>
+                            <span class="meta-val">Métodos Formales en Ingeniería (MFI)</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Presentado por</span>
+                            <span class="meta-val">Estudiantes de 3º de Ingeniería</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Herramienta de Meta</span>
+                            <span class="meta-val"><i class="fa-brands fa-meta"></i> Meta Open Source</span>
+                        </div>
+                    </div>
+                    
+                    <div class="scroll-helper">
+                        <span>Presiona la flecha derecha <i class="fa-solid fa-arrow-right"></i> o pulsa "Siguiente" para comenzar</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 2: ¿Qué es FBInfer? -->
+            <section class="slide" id="slide-2" data-title="Breve Presentación">
+                <div class="slide-content grid-2-cols">
+                    <div class="text-column">
+                        <span class="section-tag">01. Presentación</span>
+                        <h2 class="slide-heading">¿Qué es FB<span class="gradient-text">Infer</span>?</h2>
+                        <p class="slide-description">
+                            Es un motor de <strong>análisis estático de código</strong> diseñado para encontrar fallos graves en el software antes de que sea compilado o enviado a producción.
+                        </p>
+                        <ul class="fancy-list">
+                            <li>
+                                <div class="list-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                                <div class="list-body">
+                                    <strong>Prevención de Crashes:</strong> Evita fallos críticos que detienen las aplicaciones (como punteros nulos o desbordamientos).
+                                </div>
+                            </li>
+                            <li>
+                                <div class="list-icon"><i class="fa-solid fa-bolt"></i></div>
+                                <div class="list-body">
+                                    <strong>Análisis en Tiempo Real:</strong> Se integra en servidores de integración continua (CI) para validar cambios en minutos.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="list-icon"><i class="fa-solid fa-code"></i></div>
+                                <div class="list-body">
+                                    <strong>Multilenguaje:</strong> Soporte avanzado para ecosistemas diversos como Java, C, C++ y Objective-C.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="visual-column">
+                        <div class="premium-card glass">
+                            <div class="card-header">
+                                <i class="fa-solid fa-magnifying-glass-chart card-icon"></i>
+                                <h3>¿Cómo opera el Análisis Estático?</h3>
+                            </div>
+                            <p class="card-text">
+                                A diferencia del análisis dinámico (pruebas unitarias/QA) que requiere ejecutar el software en escenarios de prueba, Infer <strong>analiza la estructura lógica y matemática del código fuente</strong>, razonando sobre todas las rutas de ejecución posibles simultáneamente.
+                            </p>
+                            <div class="stats-grid">
+                                <div class="stat-box">
+                                    <span class="stat-number">0</span>
+                                    <span class="stat-label">Ejecución de Código</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number">100%</span>
+                                    <span class="stat-label">Rutas Evaluadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 3: Historia y Empresa -->
+            <section class="slide" id="slide-3" data-title="Historia y Empresa">
+                <div class="slide-content">
+                    <span class="section-tag">02. Origen</span>
+                    <h2 class="slide-heading">Historia y Respaldo Empresarial</h2>
+                    
+                    <div class="timeline-container">
+                        <!-- Nodo 1: Académico -->
+                        <div class="timeline-card">
+                            <div class="time-badge">2000 - 2001</div>
+                            <h4>Lógica de Separación</h4>
+                            <p>John Reynolds, Peter O'Hearn e Ishtiaq inventan esta teoría matemática para razonar localmente sobre punteros de memoria, revolucionando la verificación formal.</p>
+                        </div>
+                        
+                        <!-- Nodo 2: Monoidics -->
+                        <div class="timeline-card">
+                            <div class="time-badge">2009</div>
+                            <h4>Startup Monoidics</h4>
+                            <p>Los creadores de la teoría fundan en Londres <strong>Monoidics</strong> para industrializar la lógica de separación en un analizador comercial llamado INFER.</p>
+                        </div>
+                        
+                        <!-- Nodo 3: Adquisición -->
+                        <div class="timeline-card highlight-card">
+                            <div class="time-badge">2013</div>
+                            <h4>Adquisición de Facebook</h4>
+                            <p>Facebook adquiere Monoidics y a su equipo científico. El objetivo: solucionar los problemas de crashes en la escala gigante de sus apps de Android e iOS.</p>
+                        </div>
+                        
+                        <!-- Nodo 4: Open Source -->
+                        <div class="timeline-card">
+                            <div class="time-badge">2015 - Hoy</div>
+                            <h4>Liberación Open Source</h4>
+                            <p>Meta libera Infer bajo licencia MIT. Actualmente es usado en producción por gigantes como **Spotify, Uber, Amazon, Mozilla y Riot Games**.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 4: Técnicas Propias (Bi-Abducción) -->
+            <section class="slide" id="slide-4" data-title="Técnicas Lógicas">
+                <div class="slide-content grid-2-cols">
+                    <div class="text-column">
+                        <span class="section-tag">03. Innovación Teórica</span>
+                        <h2 class="slide-heading">Análisis Composicional y Bi-Abducción</h2>
+                        <p class="slide-description">
+                            El análisis estático clásico no escala porque debe evaluar millones de combinaciones globales. Infer revolucionó el campo con la **Bi-Abducción** (Bi-Abduction).
+                        </p>
+                        
+                        <div class="interactive-logic-blocks">
+                            <div class="logic-step" data-step="1">
+                                <span class="step-num">1</span>
+                                <div>
+                                    <h5>Análisis Local (Composicional)</h5>
+                                    <p>Infer analiza cada función o método **por separado** sin mirar el resto del programa.</p>
+                                </div>
+                            </div>
+                            <div class="logic-step" data-step="2">
+                                <span class="step-num">2</span>
+                                <div>
+                                    <h5>Cálculo de Pre y Postcondiciones</h5>
+                                    <p>Genera una especificación matemática: qué necesita la función para no fallar (Pre) y qué altera al salir (Post).</p>
+                                </div>
+                            </div>
+                            <div class="logic-step" data-step="3">
+                                <span class="step-num">3</span>
+                                <div>
+                                    <h5>Abducción de Faltantes</h5>
+                                    <p>Al unir funciones, si falta información del estado, la abducción deduce qué trozo de memoria lógica falta para garantizar la seguridad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-column">
+                        <div class="concept-diagram-card glass">
+                            <h4>Esquema de Bi-Abducción</h4>
+                            <div class="diagram-canvas">
+                                <div class="node-block start">
+                                    <span class="node-tag">Estado Actual</span>
+                                    <span class="node-val">HENO</span>
+                                </div>
+                                <div class="diagram-arrow"><i class="fa-solid fa-arrow-down-long"></i></div>
+                                <div class="node-block action-box">
+                                    <span class="node-tag">Método requiere precondición</span>
+                                    <span class="node-val">PRE</span>
+                                    <div class="abduction-bubble">
+                                        <i class="fa-solid fa-wand-magic-sparkles"></i> <strong>Abducción:</strong> ¿Qué falta? <br>
+                                        Deducción: <code>[Falta MEMORIA X]</code>
+                                    </div>
+                                </div>
+                                <div class="diagram-arrow"><i class="fa-solid fa-arrow-down-long"></i></div>
+                                <div class="node-block end">
+                                    <span class="node-tag">Resultado Garantizado</span>
+                                    <span class="node-val">POST</span>
+                                </div>
+                            </div>
+                            <p class="diagram-caption">Gracias a este razonamiento incremental, Infer puede analizar miles de cambios de código en segundos de forma lineal.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 5: Características y Errores Detectados -->
+            <section class="slide" id="slide-5" data-title="Errores Detectados">
+                <div class="slide-content">
+                    <span class="section-tag">03. Capacidades</span>
+                    <h2 class="slide-heading">Errores Críticos que Detecta</h2>
+                    <p class="slide-description">Infer no busca errores ortográficos o estéticos simples; busca fallos de memoria, concurrencia y recursos.</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="f-icon-wrapper red"><i class="fa-solid fa-skull-crossbones"></i></div>
+                            <h4>Punteros Nulos (Null Pointer)</h4>
+                            <p>Localiza desreferenciaciones accidentales a objetos nulos que provocan caídas inmediatas de la aplicación (como <code>NullPointerException</code>).</p>
+                            <span class="lang-badge java">Java</span><span class="lang-badge cpp">C/C++</span>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="f-icon-wrapper orange"><i class="fa-solid fa-droplet-slash"></i></div>
+                            <h4>Fugas de Memoria (Memory Leaks)</h4>
+                            <p>Encuentra asignaciones de memoria dinámica en el montón (heap) mediante <code>malloc</code> que nunca se liberan con <code>free</code>.</p>
+                            <span class="lang-badge cpp">C/C++</span><span class="lang-badge objc">Obj-C</span>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="f-icon-wrapper blue"><i class="fa-solid fa-plug-circle-xmark"></i></div>
+                            <h4>Fugas de Recursos (Resource Leaks)</h4>
+                            <p>Detecta conexiones a bases de datos, sockets de red y flujos de archivos que no se cierran al ocurrir una excepción.</p>
+                            <span class="lang-badge java">Java</span><span class="lang-badge cpp">C/C++</span>
+                        </div>
+                        
+                        <div class="feature-card">
+                            <div class="f-icon-wrapper purple"><i class="fa-solid fa-shuffle"></i></div>
+                            <h4>Concurrencia (Thread Safety)</h4>
+                            <p>Analiza anotaciones de seguridad de hilos y detecta condiciones de carrera (Data Races) y bloqueos mutuos (Deadlocks).</p>
+                            <span class="lang-badge java">Java</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 6: Facilidad de Instalación -->
+            <section class="slide" id="slide-6" data-title="Instalación">
+                <div class="slide-content">
+                    <span class="section-tag">04. Instalación</span>
+                    <h2 class="slide-heading">Facilidad de Instalación por Plataforma</h2>
+                    <p class="slide-description">Infer está diseñado nativamente para sistemas basados en Unix (Linux y macOS). En Windows requiere alternativas de virtualización.</p>
+                    
+                    <div class="platforms-grid">
+                        <div class="platform-card">
+                            <div class="platform-header">
+                                <i class="fa-brands fa-apple platform-icon"></i>
+                                <h3>macOS</h3>
+                            </div>
+                            <div class="platform-status status-easy"><i class="fa-solid fa-circle-check"></i> Extremadamente Fácil</div>
+                            <p>Se instala automáticamente en segundos utilizando el gestor de paquetes Homebrew.</p>
+                            <pre class="code-snippet"><code>brew install infer</code></pre>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-header">
+                                <i class="fa-brands fa-linux platform-icon"></i>
+                                <h3>Linux</h3>
+                            </div>
+                            <div class="platform-status status-easy"><i class="fa-solid fa-circle-check"></i> Fácil / Estándar</div>
+                            <p>Descargando las versiones precompiladas (.tar.xz) desde GitHub y agregándolas al PATH.</p>
+                            <pre class="code-snippet"><code>curl -sSL https://github.com/... | tar -xJ
+export PATH="/opt/infer/...:$PATH"</code></pre>
+                        </div>
+                        
+                        <div class="platform-card warning-platform">
+                            <div class="platform-header">
+                                <i class="fa-brands fa-windows platform-icon"></i>
+                                <h3>Windows</h3>
+                            </div>
+                            <div class="platform-status status-hard"><i class="fa-solid fa-triangle-exclamation"></i> Requiere Adaptación</div>
+                            <p><strong>No hay soporte nativo directo</strong>. Compilarlo en Windows nativo es inviable por su dependencia estricta de OCaml y Clang Unix.</p>
+                            <div class="workaround-box">
+                                <strong>Alternativas recomendadas:</strong>
+                                <ul>
+                                    <li><i class="fa-solid fa-terminal"></i> WSL2 (Windows Subsystem for Linux)</li>
+                                    <li><i class="fa-brands fa-docker"></i> Contenedores Docker (Aislamiento completo)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 7: Si la habéis instalado o no -->
+            <section class="slide" id="slide-7" data-title="Nuestra Instalación">
+                <div class="slide-content grid-2-cols">
+                    <div class="text-column">
+                        <span class="section-tag">05. Experimentación</span>
+                        <h2 class="slide-heading">¿La hemos instalado?</h2>
+                        <div class="install-verdict">
+                            <i class="fa-solid fa-circle-check verdict-icon"></i>
+                            <div>
+                                <h3>¡Sí, con éxito rotundo!</h3>
+                                <p>Hemos sorteado las limitaciones de Windows aplicando metodologías de desarrollo profesionales.</p>
+                            </div>
+                        </div>
+                        
+                        <p class="slide-description">
+                            Para validar la herramienta en nuestras máquinas Windows de estudiantes, instalamos y probamos Infer a través de dos soluciones recomendadas:
+                        </p>
+                        
+                        <div class="step-guide">
+                            <div class="step-item">
+                                <span class="step-bullet">A</span>
+                                <div>
+                                    <strong>WSL2 (Ubuntu 22.04 LTS):</strong>
+                                    Instalamos la distribución Linux en Windows, configuramos el entorno Java y Clang, y montamos Infer en minutos.
+                                </div>
+                            </div>
+                            <div class="step-item">
+                                <span class="step-bullet">B</span>
+                                <div>
+                                    <strong>Contenedor Docker (facebook/infer):</strong>
+                                    Levantamos la imagen oficial de Infer montando nuestro código local, permitiendo correr análisis de forma aislada y limpia.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-column">
+                        <div class="terminal-mockup">
+                            <div class="terminal-header">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                                <span class="terminal-title">bash - wsl2@ubuntu</span>
+                            </div>
+                            <div class="terminal-body">
+                                <p class="command-line"><span class="prompt">wsl$</span> infer --version</p>
+                                <p class="output-line">Infer version v1.1.0</p>
+                                <p class="output-line">Copyright 2009 - 2026 Meta Platforms, Inc. and contributors.</p>
+                                <p class="output-line">Licensed under the MIT License.</p>
+                                <p class="command-line"><span class="prompt">wsl$</span> docker run --rm facebook/infer infer --version</p>
+                                <p class="output-line">Infer version v1.1.0</p>
+                                <p class="output-line-success"><i class="fa-solid fa-circle-check"></i> [OK] ¡Entornos listos para pruebas!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 8: Pequeño ejemplo de uso -->
+            <section class="slide" id="slide-8" data-title="Ejemplo de Uso">
+                <div class="slide-content">
+                    <span class="section-tag">06. Demo Práctica</span>
+                    <h2 class="slide-heading">Ejemplo de Uso y Reporte de Bugs</h2>
+                    <p class="slide-description">Infer intercepta el compilador e identifica errores complejos. Haz clic en las pestañas para ver los casos probados.</p>
+                    
+                    <!-- Tabs para alternar Java / C -->
+                    <div class="demo-tabs">
+                        <button class="tab-btn active" data-tab="java-demo"><i class="fa-brands fa-java"></i> Ejemplo Java (NullPointer + Recursos)</button>
+                        <button class="tab-btn" data-tab="c-demo"><i class="fa-solid fa-c"></i> Ejemplo C (Memory Leak)</button>
+                        <button class="tab-btn" data-tab="sandbox-demo"><i class="fa-solid fa-laptop-code"></i> Sandbox Interactivo (Codeboard)</button>
+                    </div>
+                    
+                    <!-- Contenido de las Tabs -->
+                    <div class="tab-content active" id="java-demo">
+                        <div class="grid-2-cols">
+                            <div class="code-box">
+                                <div class="code-title">Ejemplo.java</div>
+                                <pre><code>import java.io.*;
+
+public class Ejemplo {
+    public int obtenerLongitud(String texto) {
+        String miTexto = null;
+        if (texto != null) miTexto = texto;
+        
+        // BUG 1: Puntero Nulo (puede explotar)
+        return miTexto.length(); 
+    }
+
+    public void escribir(String ruta, String d) throws Exception {
+        // BUG 2: Fuga de Recurso (FileOutputStream)
+        FileOutputStream fos = new FileOutputStream(ruta);
+        fos.write(d.getBytes());
+        fos.close(); 
+    }
+}</code></pre>
+                            </div>
+                            <div class="analysis-box">
+                                <div class="analysis-title">Comando y Salida de Infer</div>
+                                <div class="terminal-mockup font-small">
+                                    <div class="terminal-body">
+                                        <p class="command-line"><span class="prompt">$</span> infer run -- javac Ejemplo.java</p>
+                                        <p class="output-line">Capturing compile commands...</p>
+                                        <p class="output-line">Analyzing 1 source file...</p>
+                                        <br>
+                                        <p class="output-error">Found 2 issues</p>
+                                        <p class="output-error-item">
+                                            <strong>Ejemplo.java:8: error: NULL_DEREFERENCE</strong><br>
+                                            object `miTexto` last assigned on line 5 could be null and is dereferenced at line 8.
+                                        </p>
+                                        <p class="output-error-item">
+                                            <strong>Ejemplo.java:13: error: RESOURCE_LEAK</strong><br>
+                                            resource acquired to fos line 13 is not released.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="c-demo">
+                        <div class="grid-2-cols">
+                            <div class="code-box">
+                                <div class="code-title">leak.c</div>
+                                <pre><code>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+
+void procesar(int cond) {
+    // Se reserva memoria en el heap
+    int *buffer = (int *)malloc(100 * sizeof(int));
+    
+    if (cond > 50) {
+        printf("Error fatal\n");
+        // BUG: Salimos sin liberar con free()
+        return; 
+    }
+    
+    free(buffer); // Proceso normal
+}</code></pre>
+                            </div>
+                            <div class="analysis-box">
+                                <div class="analysis-title">Comando y Salida de Infer</div>
+                                <div class="terminal-mockup font-small">
+                                    <div class="terminal-body">
+                                        <p class="command-line"><span class="prompt">$</span> infer run -- gcc -c leak.c</p>
+                                        <p class="output-line">Capturing compile commands...</p>
+                                        <p class="output-line">Analyzing 1 source file...</p>
+                                        <br>
+                                        <p class="output-error">Found 1 issue</p>
+                                        <p class="output-error-item">
+                                            <strong>leak.c:10: error: MEMORY_LEAK</strong><br>
+                                            memory dynamically allocated to `buffer` line 6 is not released after line 10.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="sandbox-demo">
+                        <div style="width: 100%; height: 420px; overflow: hidden; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary);">
+                            <iframe src="https://codeboard.io/projects/11587?view=2.1-21.0-22.0" style="width: 100%; height: 100%; border: none;" allow="fullscreen"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 9: Conclusiones -->
+            <section class="slide" id="slide-9" data-title="Conclusiones">
+                <div class="slide-content">
+                    <span class="section-tag">07. Resumen</span>
+                    <h2 class="slide-heading">Conclusiones del Análisis de FBInfer</h2>
+                    <p class="slide-description">Evaluación final sobre el impacto de la herramienta en la ingeniería de software actual.</p>
+                    
+                    <div class="grid-2-cols gap-large">
+                        <div class="conclusion-box pros">
+                            <h3><i class="fa-solid fa-circle-plus icon-pro"></i> Puntos Fuertes (Ventajas)</h3>
+                            <ul>
+                                <li>
+                                    <strong>Matemáticamente infalible:</strong> La lógica de separación y bi-abducción le otorgan una tasa bajísima de falsos positivos frente a herramientas basadas puramente en patrones sintácticos.
+                                </li>
+                                <li>
+                                    <strong>Escalabilidad Real:</strong> Es capaz de analizar proyectos inmensos gracias a su carácter composicional (métodos analizados por separado).
+                                </li>
+                                <li>
+                                    <strong>Integración en CI/CD:</strong> Se ejecuta sobre la marcha en commits y pull requests dando un feedback inmediato a los programadores.
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="conclusion-box cons">
+                            <h3><i class="fa-solid fa-circle-minus icon-con"></i> Limitaciones (Inconvenientes)</h3>
+                            <ul>
+                                <li>
+                                    <strong>Sin soporte directo para Windows:</strong> Requiere WSL2 o contenedores Docker, complicando ligeramente la configuración nativa.
+                                </li>
+                                <li>
+                                    <strong>Curva de Aprendizaje:</strong> Algunos reportes avanzados de concurrencia y flujo lógico requieren formación técnica sólida sobre gestión de memoria.
+                                </li>
+                                <li>
+                                    <strong>Dependencia de Compiladores:</strong> Requiere interceptar la compilación, lo que a veces complica el setup en proyectos con sistemas de compilación no estándar.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DIAPOSITIVA 10: Bibliografía -->
+            <section class="slide" id="slide-10" data-title="Bibliografía">
+                <div class="slide-content bibliografia-slide">
+                    <span class="section-tag">08. Referencias</span>
+                    <h2 class="slide-heading">Bibliografía y Fuentes</h2>
+                    <p class="slide-description">Recursos documentales y de investigación académica utilizados en esta presentación.</p>
+                    
+                    <div class="bib-grid">
+                        <a href="https://fbinfer.com/" target="_blank" class="bib-card glass">
+                            <div class="bib-icon"><i class="fa-solid fa-globe"></i></div>
+                            <div class="bib-info">
+                                <h4>Sitio Web Oficial</h4>
+                                <p>fbinfer.com</p>
+                                <span>Acceso a la documentación oficial, tutoriales básicos y guías de configuración.</span>
+                            </div>
+                        </a>
+                        
+                        <a href="https://github.com/facebook/infer" target="_blank" class="bib-card glass">
+                            <div class="bib-icon"><i class="fa-brands fa-github"></i></div>
+                            <div class="bib-info">
+                                <h4>Repositorio GitHub</h4>
+                                <p>github.com/facebook/infer</p>
+                                <span>Código fuente oficial del motor lógico en OCaml, issues de soporte técnico e instrucciones de instalación.</span>
+                            </div>
+                        </a>
+                        
+                        <div class="bib-card glass">
+                            <div class="bib-icon"><i class="fa-solid fa-book"></i></div>
+                            <div class="bib-info">
+                                <h4>Paper Académico de Bi-Abducción</h4>
+                                <p>Calcagno, C., Distefano, D., O'Hearn, P. W., & Yang, H. (2011)</p>
+                                <span>"Compositional Shape Analysis by Means of Bi-Abduction", Journal of the ACM. La publicación científica fundacional.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bib-card glass">
+                            <div class="bib-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <div class="bib-info">
+                                <h4>Separation Logic</h4>
+                                <p>O'Hearn, P. W. (2019) / CACM</p>
+                                <span>Revisión de la Lógica de Separación y su impacto en la prevención de fallos de producción a escala de Facebook.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="thank-you-box">
+                        <h3>¡Muchas Gracias por vuestra atención!</h3>
+                        <p>¿Teneis alguna pregunta sobre FBInfer?</p>
+                    </div>
+                </div>
+            </section>
+            
+        </main>
+
+        <!-- Barra de Control de la Presentación -->
+        <footer class="presentation-controls">
+            <div class="controls-left">
+                <button id="prev-btn" class="ctrl-btn" title="Anterior (Flecha Izquierda)">
+                    <i class="fa-solid fa-chevron-left"></i> Anterior
+                </button>
+            </div>
+            
+            <!-- Indicador y Selector de Diapositiva -->
+            <div class="controls-center">
+                <div class="slide-counter">
+                    Diapositiva <span id="current-slide-num">1</span> de <span id="total-slides-num">10</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </div>
+            
+            <div class="controls-right">
+                <button id="next-btn" class="ctrl-btn" title="Siguiente (Flecha Derecha / Espacio)">
+                    Siguiente <i class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+        </footer>
+        
+    </div>
+    
+    <!-- Lógica JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

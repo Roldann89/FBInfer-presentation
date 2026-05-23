@@ -1,0 +1,1523 @@
+/* -------------------------------------------------------------
+   SISTEMA DE DISEÑO Y CONFIGURACIÓN DE ESTILOS PREMIUM
+   Presentación Interactiva FBInfer
+   ------------------------------------------------------------- */
+
+/* Variables de Temas con HSL Tailored Colors */
+:root {
+    /* Tipografías */
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+
+    /* Transiciones */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-slide: 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+
+    /* Sombras y Bordes */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.2);
+    --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.35);
+}
+
+/* TEMA OSCURO (Por defecto) */
+.dark-theme {
+    --bg-main: #06090e;
+    --bg-secondary: #0c1017;
+    --bg-card: rgba(18, 24, 38, 0.65);
+    --border-color: rgba(255, 255, 255, 0.08);
+    
+    --text-primary: #f0f6fc;
+    --text-secondary: #8b949e;
+    --text-muted: #565d66;
+
+    /* Acentos */
+    --color-primary: hsl(250, 85%, 65%);     /* Indigo vibrante */
+    --color-primary-glow: rgba(99, 102, 241, 0.15);
+    --color-accent: rgb(20, 215, 250);      /* Cian eléctrico */
+    --color-accent-rgb: 20, 215, 250;
+    --gradient-accent: linear-gradient(135deg, hsl(250, 85%, 65%) 0%, rgb(20, 215, 250) 100%);
+    
+    /* Estados */
+    --color-success: #23c55e;
+    --color-error: #f43f5e;
+    --color-warning: #f59e0b;
+    --bg-terminal: #07090e;
+}
+
+/* TEMA CLARO */
+.light-theme {
+    --bg-main: #f3f4f6;
+    --bg-secondary: #ffffff;
+    --bg-card: rgba(255, 255, 255, 0.75);
+    --border-color: rgba(0, 0, 0, 0.08);
+    
+    --text-primary: #1f2937;
+    --text-secondary: #4b5563;
+    --text-muted: #9ca3af;
+
+    /* Acentos */
+    --color-primary: hsl(250, 75%, 55%);
+    --color-primary-glow: rgba(99, 102, 241, 0.08);
+    --color-accent: rgb(14, 116, 144);      /* Azul cian profundo */
+    --color-accent-rgb: 14, 116, 144;
+    --gradient-accent: linear-gradient(135deg, hsl(250, 75%, 55%) 0%, rgb(14, 116, 144) 100%);
+    
+    /* Estados */
+    --color-success: #15803d;
+    --color-error: #be123c;
+    --color-warning: #b45309;
+    --bg-terminal: #111827;
+}
+
+/* Estilos de Reseteo */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow: hidden; /* Evita scrolls del navegador completo */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color var(--transition-smooth), color var(--transition-smooth);
+}
+
+/* -------------------------------------------------------------
+   ESTRUCTURA Y VISTA GENERAL DE LA APP
+   ------------------------------------------------------------- */
+
+.presentation-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Header de la Aplicación */
+.app-header {
+    height: 70px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 10;
+    transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon {
+    font-size: 24px;
+    color: var(--color-primary);
+    text-shadow: 0 0 15px var(--color-primary);
+}
+
+.logo-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 22px;
+    letter-spacing: -0.5px;
+}
+
+.accent-text {
+    color: var(--color-accent);
+}
+
+.slide-title-indicator {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 15px;
+    background: var(--color-primary-glow);
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 1px solid var(--border-color);
+}
+
+.header-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.header-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.header-btn:hover {
+    background-color: var(--border-color);
+    color: var(--color-primary);
+    transform: scale(1.05);
+}
+
+/* -------------------------------------------------------------
+   SISTEMA DE DIAPOSITIVAS Y COMPORTAMIENTO DE TRANSICIÓN
+   ------------------------------------------------------------- */
+
+.slides-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    padding: 40px;
+}
+
+/* Estilo de una Diapositiva Individual */
+.slide {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%) scale(0.95);
+    transition: transform var(--transition-slide), opacity var(--transition-slide), visibility var(--transition-slide);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* Diapositiva Activa */
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0) scale(1);
+    z-index: 2;
+}
+
+/* Diapositiva que sale por la izquierda */
+.slide.exit-left {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%) scale(0.95);
+}
+
+/* Diapositiva que sale por la derecha (retroceso) */
+.slide.exit-right {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%) scale(0.95);
+}
+
+/* Diapositiva que entra desde la izquierda (retroceso) */
+.slide.enter-left {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-100%) scale(0.95);
+}
+
+/* Contenido Interno de la Diapositiva */
+.slide-content {
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    max-height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    animation: fadeInContent 0.8s ease forwards;
+}
+
+@keyframes fadeInContent {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Grillas y Columnas Comunes */
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+    height: 100%;
+}
+
+.text-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.visual-column {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    perspective: 1000px;
+}
+
+/* Etiquetas y Títulos */
+.section-tag {
+    color: var(--color-accent);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    display: inline-block;
+}
+
+.slide-heading {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 42px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.gradient-text {
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide-description {
+    font-size: 18px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* -------------------------------------------------------------
+   DISEÑO DE COMPONENTES DE CONTENIDO (CARDS, LISTAS, TIMELINES)
+   ------------------------------------------------------------- */
+
+/* Listas Especiales */
+.fancy-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fancy-list li {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.list-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: var(--color-primary-glow);
+    border: 1px solid var(--border-color);
+    color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.list-body {
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.list-body strong {
+    color: var(--text-primary);
+    display: block;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+/* Premium Card (Glassmorphism) */
+.premium-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    width: 100%;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.premium-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.card-icon {
+    font-size: 24px;
+    color: var(--color-accent);
+}
+
+.card-header h3 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.stat-box {
+    background-color: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    text-align: center;
+}
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 28px;
+    color: var(--color-primary);
+    display: block;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 4px;
+}
+
+/* -------------------------------------------------------------
+   DISEÑOS DE DIAPOSITIVAS ESPECÍFICAS
+   ------------------------------------------------------------- */
+
+/* Diapositiva 1: Portada */
+.cover-slide {
+    align-items: center;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.cover-badge {
+    background: var(--color-primary-glow);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-glow);
+}
+
+.main-title {
+    font-family: var(--font-heading);
+    font-size: 84px;
+    font-weight: 800;
+    letter-spacing: -3px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.main-subtitle {
+    font-size: 22px;
+    color: var(--text-secondary);
+    max-width: 750px;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+.divider {
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-accent);
+    border-radius: 10px;
+    margin: 32px 0;
+}
+
+.cover-meta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.meta-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    backdrop-filter: blur(10px);
+}
+
+.meta-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.meta-val {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-primary);
+}
+
+.scroll-helper {
+    margin-top: 40px;
+    font-size: 14px;
+    color: var(--text-muted);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-8px); }
+    60% { transform: translateY(-4px); }
+}
+
+/* Diapositiva 3: Timeline de Historia */
+.timeline-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+    position: relative;
+}
+
+.timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+.timeline-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    position: relative;
+    z-index: 2;
+    margin-top: 20px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 20px);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.timeline-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.time-badge {
+    position: absolute;
+    top: -35px;
+    left: 16px;
+    background: var(--bg-secondary);
+    color: var(--color-accent);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.timeline-card h4 {
+    font-family: var(--font-heading);
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    margin-top: 10px;
+}
+
+.timeline-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.timeline-card.highlight-card {
+    border: 1.5px solid var(--color-primary);
+    box-shadow: var(--shadow-glow);
+}
+
+.timeline-card.highlight-card .time-badge {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+}
+
+/* Diapositiva 4: Diagrama de Bi-Abducción */
+.interactive-logic-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.logic-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.01);
+    transition: var(--transition-fast);
+}
+
+.logic-step:hover {
+    background: var(--color-primary-glow);
+    border-color: var(--color-primary);
+}
+
+.step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.logic-step h5 {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.logic-step p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.concept-diagram-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    width: 100%;
+    max-width: 440px;
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+}
+
+.concept-diagram-card h4 {
+    font-family: var(--font-heading);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.diagram-canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.node-block {
+    width: 220px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    position: relative;
+}
+
+.node-tag {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.node-val {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.node-block.start {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(20, 215, 250, 0.15);
+}
+
+.node-block.action-box {
+    border-color: var(--color-primary);
+    background: var(--color-primary-glow);
+    padding-bottom: 18px;
+}
+
+.node-block.end {
+    border-color: var(--color-success);
+    box-shadow: 0 0 15px rgba(35, 197, 94, 0.15);
+}
+
+.diagram-arrow {
+    color: var(--text-muted);
+    font-size: 16px;
+    animation: arrowPulse 1.5s infinite;
+}
+
+@keyframes arrowPulse {
+    0%, 100% { opacity: 0.4; transform: translateY(0); }
+    50% { opacity: 1; transform: translateY(4px); }
+}
+
+.abduction-bubble {
+    position: absolute;
+    right: -160px;
+    top: 5px;
+    width: 140px;
+    background: var(--bg-secondary);
+    border: 1.5px dashed var(--color-accent);
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    text-align: left;
+    box-shadow: var(--shadow-sm);
+    color: var(--text-secondary);
+}
+
+.abduction-bubble code {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+}
+
+.diagram-caption {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-top: 16px;
+}
+
+/* Diapositiva 5: Grid de Features */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.f-icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.f-icon-wrapper.red { background: rgba(244, 63, 94, 0.1); color: var(--color-error); }
+.f-icon-wrapper.orange { background: rgba(245, 158, 11, 0.1); color: var(--color-warning); }
+.f-icon-wrapper.blue { background: rgba(20, 215, 250, 0.1); color: var(--color-accent); }
+.f-icon-wrapper.purple { background: rgba(99, 102, 241, 0.1); color: var(--color-primary); }
+
+.feature-card h4 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.lang-badge {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.lang-badge.java { background: rgba(224, 80, 0, 0.1); color: #e05000; border: 1px solid rgba(224, 80, 0, 0.2); }
+.lang-badge.cpp { background: rgba(0, 89, 156, 0.1); color: #3b82f6; border: 1px solid rgba(0, 89, 156, 0.2); }
+.lang-badge.objc { background: rgba(162, 137, 246, 0.1); color: #a289f6; border: 1px solid rgba(162, 137, 246, 0.2); }
+
+/* Diapositiva 6: Plataformas de Instalación */
+.platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 30px;
+}
+
+.platform-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.platform-icon {
+    font-size: 26px;
+    color: var(--text-primary);
+}
+
+.platform-header h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.platform-status {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.status-easy { color: var(--color-success); }
+.status-hard { color: var(--color-warning); }
+
+.platform-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.code-snippet {
+    background: var(--bg-terminal);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    overflow-x: auto;
+    color: #e0f2fe;
+}
+
+.warning-platform {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: rgba(245, 158, 11, 0.02);
+}
+
+.workaround-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    font-size: 12px;
+}
+
+.workaround-box strong {
+    color: var(--color-warning);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.workaround-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.workaround-box li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+}
+
+.workaround-box i {
+    color: var(--color-accent);
+}
+
+/* Terminal Mockup */
+.terminal-mockup {
+    width: 100%;
+    border-radius: 12px;
+    background: var(--bg-terminal);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-header {
+    background: rgba(255, 255, 255, 0.04);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.terminal-header .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.terminal-header .dot.red { background: #ff5f56; }
+.terminal-header .dot.yellow { background: #ffbd2e; }
+.terminal-header .dot.green { background: #27c93f; }
+
+.terminal-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.terminal-body {
+    padding: 20px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+    color: #e2e8f0;
+    text-align: left;
+}
+
+.terminal-mockup.font-small .terminal-body {
+    font-size: 11px;
+    padding: 16px;
+}
+
+.command-line {
+    color: #38bdf8;
+    margin-bottom: 8px;
+}
+
+.command-line .prompt {
+    color: #818cf8;
+    font-weight: 600;
+}
+
+.output-line {
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+
+.output-line-success {
+    color: var(--color-success);
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.output-error {
+    color: var(--color-error);
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.output-error-item {
+    background: rgba(244, 63, 94, 0.08);
+    border-left: 3px solid var(--color-error);
+    padding: 10px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 10px;
+    color: #fda4af;
+}
+
+.output-error-item strong {
+    color: var(--color-error);
+    display: block;
+    margin-bottom: 4px;
+}
+
+/* Diapositiva 7: Si la habéis instalado */
+.install-verdict {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--color-primary-glow);
+    border: 1px solid var(--color-primary);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 24px;
+}
+
+.verdict-icon {
+    font-size: 32px;
+    color: var(--color-primary);
+}
+
+.install-verdict h3 {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    margin-bottom: 2px;
+}
+
+.install-verdict p {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.step-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.step-item {
+    display: flex;
+    gap: 14px;
+}
+
+.step-bullet {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #06090e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-item div {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.step-item strong {
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 2px;
+}
+
+/* Diapositiva 8: Pestañas de Ejemplos */
+.demo-tabs {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+}
+
+.tab-btn {
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-heading);
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: var(--transition-fast);
+}
+
+.tab-btn:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.tab-btn.active {
+    background: var(--gradient-accent);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-glow);
+}
+
+.tab-content {
+    display: none;
+    height: 100%;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.code-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.code-title, .analysis-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.code-box pre {
+    flex: 1;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    overflow: auto;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.5;
+    color: #cbd5e1;
+}
+
+/* Diapositiva 9: Conclusiones */
+.gap-large {
+    gap: 60px;
+}
+
+.conclusion-box {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    height: 100%;
+}
+
+.conclusion-box.pros {
+    border-left: 5px solid var(--color-success);
+}
+
+.conclusion-box.cons {
+    border-left: 5px solid var(--color-error);
+}
+
+.conclusion-box h3 {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-pro { color: var(--color-success); }
+.icon-con { color: var(--color-error); }
+
+.conclusion-box ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.conclusion-box li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    position: relative;
+    padding-left: 20px;
+}
+
+.conclusion-box li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.conclusion-box.pros li::before { color: var(--color-success); }
+.conclusion-box.cons li::before { color: var(--color-error); }
+
+.conclusion-box li strong {
+    color: var(--text-primary);
+}
+
+/* Diapositiva 10: Bibliografía */
+.bibliografia-slide {
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.bib-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.bib-card {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    text-decoration: none;
+    color: inherit;
+    text-align: left;
+}
+
+a.bib-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-accent);
+}
+
+.bib-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--color-primary-glow);
+    border: 1px solid var(--border-color);
+    color: var(--color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.bib-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bib-info h4 {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.bib-info p {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-accent);
+}
+
+.bib-info span {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.thank-you-box {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.thank-you-box h3 {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.thank-you-box p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+/* -------------------------------------------------------------
+   BARRA DE CONTROLES INFERIOR
+   ------------------------------------------------------------- */
+
+.presentation-controls {
+    height: 80px;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 10;
+    transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.ctrl-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: var(--transition-fast);
+}
+
+.ctrl-btn:hover {
+    background-color: var(--color-primary-glow);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.slide-counter {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    text-align: center;
+}
+
+.progress-bar-container {
+    width: 250px;
+    height: 6px;
+    background-color: var(--border-color);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 10%;
+    background: var(--gradient-accent);
+    border-radius: 10px;
+    transition: width var(--transition-smooth);
+}
+
+/* -------------------------------------------------------------
+   ESTILOS DE ADAPTACIÓN (RESPONSIVE) Y AJUSTES
+   ------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .slides-viewport {
+        padding: 20px;
+    }
+    
+    .slide-heading {
+        font-size: 32px;
+    }
+    
+    .grid-2-cols {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .visual-column {
+        display: none; /* Oculta columnas visuales complejas en móviles */
+    }
+    
+    .timeline-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .timeline-container::before {
+        display: none;
+    }
+    
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .platforms-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .bib-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------------------------------------------
+   ESTILOS PARA EXPORTACIÓN E IMPRESIÓN (PDF)
+   ------------------------------------------------------------- */
+@media print {
+    @page {
+        size: 297mm 210mm;
+        margin: 0;
+    }
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        box-shadow: none !important;
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    body {
+        overflow: visible !important;
+        height: auto !important;
+        background-color: var(--bg-main) !important;
+        color: var(--text-primary) !important;
+    }
+    
+    .presentation-container {
+        height: auto !important;
+        display: block !important;
+        background-color: var(--bg-main) !important;
+    }
+    
+    .app-header, .presentation-controls {
+        display: none !important;
+    }
+    
+    .slides-viewport {
+        padding: 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        background-color: var(--bg-main) !important;
+    }
+    
+    .slide {
+        position: relative !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100vh !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: flex !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        break-after: page !important;
+        padding: 40px !important;
+        box-sizing: border-box !important;
+        background-color: var(--bg-main) !important;
+    }
+    
+    .slide-content {
+        max-height: none !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        justify-content: center !important;
+        opacity: 1 !important;
+        transform: none !important;
+        animation: none !important;
+    }
+
+    .timeline-container::before {
+        background: var(--border-color) !important;
+    }
+
+    .premium-card, .timeline-card, .feature-card, .platform-card, .bib-card, .terminal-mockup, .code-box pre {
+        background-color: var(--bg-card) !important;
+        border: 1px solid var(--border-color) !important;
+    }
+    
+    .tab-content {
+        display: none !important;
+    }
+    
+    .tab-content.active {
+        display: block !important;
+    }
+}
+
